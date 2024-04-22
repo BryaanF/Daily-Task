@@ -1,49 +1,68 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>Task.ly</title>
-        <link rel="shortcut icon" href="files/DT.png"/>
-        <script src="files/js/jquery.min.js"></script>
-        <script src="package/dist/sweetalert2.min.js"></script>
-        <link rel="stylesheet" href="package/dist/sweetalert2.min.css">
-        <script src="files/bootstrap/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="files/bootstrap/css/bootstrap.min.css">
-        <style>
-            body {
-                background-color: #222222;
-                color :black;
-            }
-            body h1{
-                color:white;
-            }
-            a {
-                background-color: gray;
-                color: black;
-            }
-            hr {
-                margin-top:5px;
-                margin-bottom:10px;
-            }
-        </style>
-    </head>
-    <body onload="muatDaftarData();">
-
-        <div class="col-md-10 col-md-offset-1" ng-controller="myCtrl">
-
-            <div class="page-header">
-                <h1 style="font-family: monospace;">
-                    Daily Task 
-                </h1>
-                <h4 id="asiap" style="color:white; font-family:courier;" >(Task List)</h4>
-                <hr></hr>
-                <ul class="nav nav-pills">
-                  <li><a id="nav-task-list" href="javascript:void(0);" onclick="gantiMenu('task-list');">Task List</a></li>
-                  <li><a id="nav-tambah-data" href="javascript:void(0);" onclick="gantiMenu('add-task');">Add Task</a></li>
-                  <li><a id="nav-tambah-data" href="javascript:void(0);" onclick="gantiMenu('about');">About</a></li>
-                </ul>
-            </div>
-            <!-- #broken code here! -->
-            <!-- <div class="modal fade" id="santuyMantuy" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+	<head>
+		<title>Task.ly</title>
+		<link rel="shortcut icon" href="files/DT.png" />
+		<script src="files/js/jquery.min.js"></script>
+		<script src="package/dist/sweetalert2.min.js"></script>
+		<link rel="stylesheet" href="package/dist/sweetalert2.min.css" />
+		<script src="files/bootstrap/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="files/bootstrap/css/bootstrap.min.css" />
+		<style>
+			body {
+				background-color: #222222;
+				color: black;
+			}
+			body h1 {
+				color: white;
+			}
+			a {
+				background-color: gray;
+				color: black;
+			}
+			hr {
+				margin-top: 5px;
+				margin-bottom: 10px;
+			}
+		</style>
+	</head>
+	<body onload="muatDaftarData();">
+		<div class="col-md-10 col-md-offset-1" ng-controller="myCtrl">
+			<div class="page-header">
+				<h1 style="font-family: monospace">Daily Task</h1>
+				<h4 id="asiap" style="color: white; font-family: courier">
+					(Task List)
+				</h4>
+				<hr />
+				<ul class="nav nav-pills">
+					<li>
+						<a
+							id="nav-task-list"
+							href="javascript:void(0);"
+							onclick="gantiMenu('task-list');"
+							>Task List</a
+						>
+					</li>
+					<li>
+						<a
+							id="nav-tambah-data"
+							href="javascript:void(0);"
+							onclick="gantiMenu('add-task');"
+							>Add Task</a
+						>
+					</li>
+					<li>
+						<a
+							id="nav-tambah-data"
+							href="javascript:void(0);"
+							onclick="gantiMenu('about');"
+							>About</a
+						>
+					</li>
+				</ul>
+			</div>
+			<!-- #broken code here! -->
+			<!-- <div class="modal fade" id="santuyMantuy" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-scrollable" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -62,363 +81,420 @@
                   </div>
                 </div>
               </div> -->
-              
-            <div id="tambah-data" class="well" style="display:none;">
-                <form id="form-data">
-                    <div id="name-group" class="form-group">
-                        <label>Task:</label>
-                        <input type="text" class="form-control" id="task" name="task" placeholder="contoh: Belajar Laravel" required><br/>
-                    </div>
-                    <div id="name-group" class="form-group">
-                        <label>Additional Information:</label>
-                        <textarea class="form-control" id="keterangan" name="keterangan" placeholder="contoh: Belajar CRUD" required></textarea><br/>
-                    </div>
-                    <div id="deadline-group" class="form-group">
-                        <label>Deadline:</label>
-                        <input type="text" class="form-control" id="deadline" name="deadline" placeholder="contoh: 17 Januari 2002" required><br/>
-                    </div>
-                    <input type="button" value="Save" onclick="simpanData();" class="btn btn-success btn-small"/>
-                    <input type="reset" value="Reset" onclick="" class="btn btn-warning btn-small"/>
-                </form>
-            </div>
 
-            <div id="edit-data" class="well" style="display:none;">
-                <form id="eform-data">
-                    <div id="name-group" class="form-group" style="display:none;">
-                        <label>id data:</label>
-                        <input type="text" class="form-control" id="eid_data" name="task" placeholder="" /><br/>
-                    </div>
+			<div id="tambah-data" class="well" style="display: none">
+				<form id="form-data">
+					<div id="name-group" class="form-group">
+						<label>Task:</label>
+						<input
+							type="text"
+							class="form-control"
+							id="task"
+							name="task"
+							placeholder="contoh: Belajar Laravel"
+							required /><br />
+					</div>
+					<div id="name-group" class="form-group">
+						<label>Additional Information:</label>
+						<textarea
+							class="form-control"
+							id="keterangan"
+							name="keterangan"
+							placeholder="contoh: Belajar CRUD"
+							required></textarea
+						><br />
+					</div>
+					<div id="deadline-group" class="form-group">
+						<label>Deadline:</label>
+						<input
+							type="text"
+							class="form-control"
+							id="deadline"
+							name="deadline"
+							placeholder="contoh: 17 Januari 2002"
+							required /><br />
+					</div>
+					<input
+						type="button"
+						value="Save"
+						onclick="simpanData();"
+						class="btn btn-success btn-small" />
+					<input
+						type="reset"
+						value="Reset"
+						onclick=""
+						class="btn btn-warning btn-small" />
+				</form>
+			</div>
 
-                    <div id="name-group" class="form-group">
-                        <label>Main Task:</label>
-                        <input type="text" class="form-control" id="etask" name="task" placeholder="contoh: Nyekrip Web" required><br/>
-                    </div>
-                    <div id="name-group" class="form-group">
-                        <label>Additional Information:</label>
-                        <textarea class="form-control" id="eketerangan" name="keterangan" placeholder="contoh: Belajar CRUD" required></textarea>
-                    </div>
-                    <div id="deadline-group" class="form-group">
-                        <label>Deadline:</label>
-                        <input type="text" class="form-control" id="edeadline" name="deadline" placeholder="contoh: Indonesia" required><br/>
-                    </div>
-                    <input type="button" value="Save" onclick="simpanEditData();" class="btn btn-success btn-small"/>
-                    <input type="reset" value="Reset" onclick="" class="btn btn-warning btn-small"/>
-                    <input type="button" value="Cancel" onclick="gantiMenu('task-list');" class="btn btn-warning btn-small"/>
-                </form>
-            </div>
-            <div id="task-list" class="well">
-                
-            </div>
-            <div id="santuy">
-                
-            </div>
-            </div>
-        
+			<div id="edit-data" class="well" style="display: none">
+				<form id="eform-data">
+					<div id="name-group" class="form-group" style="display: none">
+						<label>id data:</label>
+						<input
+							type="text"
+							class="form-control"
+							id="eid_data"
+							name="task"
+							placeholder="" /><br />
+					</div>
 
-          <!-- body end here -->
+					<div id="name-group" class="form-group">
+						<label>Main Task:</label>
+						<input
+							type="text"
+							class="form-control"
+							id="etask"
+							name="task"
+							placeholder="contoh: Nyekrip Web"
+							required /><br />
+					</div>
+					<div id="name-group" class="form-group">
+						<label>Additional Information:</label>
+						<textarea
+							class="form-control"
+							id="eketerangan"
+							name="keterangan"
+							placeholder="contoh: Belajar CRUD"
+							required></textarea>
+					</div>
+					<div id="deadline-group" class="form-group">
+						<label>Deadline:</label>
+						<input
+							type="text"
+							class="form-control"
+							id="edeadline"
+							name="deadline"
+							placeholder="contoh: Indonesia"
+							required /><br />
+					</div>
+					<input
+						type="button"
+						value="Save"
+						onclick="simpanEditData();"
+						class="btn btn-success btn-small" />
+					<input
+						type="reset"
+						value="Reset"
+						onclick=""
+						class="btn btn-warning btn-small" />
+					<input
+						type="button"
+						value="Cancel"
+						onclick="gantiMenu('task-list');"
+						class="btn btn-warning btn-small" />
+				</form>
+			</div>
+			<div id="task-list" class="well"></div>
+			<div id="santuy"></div>
+		</div>
 
-    </body>
-    <script type="text/javascript">
-        function muatDaftarData(){
-            if (localStorage.task_list && localStorage.id_data){
+		<!-- body end here -->
+	</body>
+	<script type="text/javascript">
+		function muatDaftarData() {
+			if (localStorage.task_list && localStorage.id_data) {
+				task_list = JSON.parse(localStorage.getItem("task_list"));
 
-                task_list = JSON.parse(localStorage.getItem('task_list'));
+				var data_app = "";
 
-                var data_app = "";
+				if (task_list.length > 0) {
+					//data_app = '<div class="table-responsive-xl>';
+					data_app += '<table class="table">';
+					data_app +=
+						'<thead class="thead-dark">' +
+						'<th style="font-size:20px; padding-left:30%;">Task</th>' +
+						'<th style="width:10%; font-size:20px;">Deadline</th>' +
+						'<th colspan="2" style="width:15%; padding-left:5%; font-size:20px;">Action</th>' +
+						"</thead><tbody>";
 
-                if (task_list.length > 0){
-                    //data_app = '<div class="table-responsive-xl>';
-                    data_app += '<table class="table">';
-                    data_app += '<thead class="thead-dark">'+
-                                        '<th style="font-size:20px; padding-left:30%;">Task</th>'+
-                                        '<th style="width:10%; font-size:20px;">Deadline</th>'+
-                                        '<th colspan="2" style="width:15%; padding-left:5%; font-size:20px;">Action</th>'+
-                                      '</thead><tbody>';
+					for (i in task_list) {
+						// the code didnt work
+						if (task_list[i].task.length > 40) {
+							+"<br>";
+						} else if (task_list[i].keterangan.length > 10) {
+							+"<p>hello world</p>";
+						}
+						//until there
+						data_app += "<tr>";
+						data_app +=
+							'<td style="white-space:pre-wrap; word-wrap:break-word"><b>Main Task:</b><br><text style="font-size:20px; font-family:georgia;">' +
+							task_list[i].task +
+							"</text><br>" +
+							"<b>Additional Information:</b>" +
+							'<br><i style="font-size:18px; font-family:georgia;">' +
+							task_list[i].keterangan +
+							"</i></td>" +
+							'<td style="font-family:open-sans; font-size:16px; padding-top:3.5%;">' +
+							task_list[i].deadline +
+							" </td>" +
+							'<td><a class="btn btn-success btn-small" href="javascript:void(0)" onclick="hapusData(\'' +
+							task_list[i].id_data +
+							'\')" style="margin-top:50%;">Done</a></td>' +
+							'<td><a class="btn btn-warning btn-small" href="javascript:void(0)" onclick="editData(\'' +
+							task_list[i].id_data +
+							'\')" style="margin-top:50%; width:60px;">Edit</a></td>';
+						data_app += "</tr>";
+					}
+					data_app += "</tbody></table>";
+					//data_app += '</div>';
+					data_app +=
+						'<br><button onclick="clearData();" type="button" class="btn btn-danger">Clear</button>';
+				} else {
+					data_app = "Yipii! No task available! ^_^";
+				}
 
-                    for (i in task_list){
-                        // the code didnt work
-                        if(task_list[i].task.length>40){
-                                + '<br>'
-                        }else if(task_list[i].keterangan.length > 10){
-                                + '<p>hello world</p>'
-                        };
-                        //until there
-                        data_app += '<tr>';
-                        data_app +=       '<td style="white-space:pre-wrap; word-wrap:break-word"><b>Main Task:</b><br><text style="font-size:20px; font-family:georgia;">'+ task_list[i].task + '</text><br>' + '<b>Additional Information:</b>'+ '<br><i style="font-size:18px; font-family:georgia;">' + task_list[i].keterangan + '</i></td>'+
-                                          '<td style="font-family:open-sans; font-size:16px; padding-top:3.5%;">'+ task_list[i].deadline + ' </td>'+
-                                          '<td><a class="btn btn-success btn-small" href="javascript:void(0)" onclick="hapusData(\''+ task_list[i].id_data +'\')" style="margin-top:50%;">Done</a></td>'+
-                                          '<td><a class="btn btn-warning btn-small" href="javascript:void(0)" onclick="editData(\''+task_list[i].id_data+'\')" style="margin-top:50%; width:60px;">Edit</a></td>';
-                        data_app += '</tr>';
-                            
-                    }
-                   data_app += '</tbody></table>';
-                   //data_app += '</div>';
-                   data_app += '<br><button onclick="clearData();" type="button" class="btn btn-danger">Clear</button>' ;   
-                     
-
-                }
-                else {
-                    data_app = 'Yipii! No task available! ^_^';
-                }
-                
-
-               $('#task-list').html(data_app);
-               $('#task-list').hide();
-               $('#task-list').fadeIn(100);
-
-            }
-        }
-        
-
-		function editData(id){
-
-            if (localStorage.task_list && localStorage.id_data){
-                task_list = JSON.parse(localStorage.getItem('task_list'));
-				idx_data = 0;
-                for (i in task_list){
-                    if (task_list[i].id_data == id){
-						$("#eid_data").val(task_list[i].id_data);
-						$("#etask").val(task_list[i].task);
-                        $("#eketerangan").val(task_list[i].keterangan);
-						$("#edeadline").val(task_list[i].deadline);
-						task_list.splice(idx_data, 1);
-                    }
-                    idx_data ++;
-                }
-				gantiMenu('edit-data');
-
-            }
-
+				$("#task-list").html(data_app);
+				$("#task-list").hide();
+				$("#task-list").fadeIn(100);
+			}
 		}
 
+		function editData(id) {
+			if (localStorage.task_list && localStorage.id_data) {
+				task_list = JSON.parse(localStorage.getItem("task_list"));
+				idx_data = 0;
+				for (i in task_list) {
+					if (task_list[i].id_data == id) {
+						$("#eid_data").val(task_list[i].id_data);
+						$("#etask").val(task_list[i].task);
+						$("#eketerangan").val(task_list[i].keterangan);
+						$("#edeadline").val(task_list[i].deadline);
+						task_list.splice(idx_data, 1);
+					}
+					idx_data++;
+				}
+				gantiMenu("edit-data");
+			}
+		}
 
-        function simpanData(){
-            task = $('#task').val();
-            deadline = $('#deadline').val();
-            keterangan = $('#keterangan').val();
+		function simpanData() {
+			task = $("#task").val();
+			deadline = $("#deadline").val();
+			keterangan = $("#keterangan").val();
 
-            if (localStorage.task_list && localStorage.id_data){
-                task_list = JSON.parse(localStorage.getItem('task_list'));
-                id_data = parseInt(localStorage.getItem('id_data'));
-            }
-            else {
-                task_list = [];
-                id_data = 0;
-            }
-            if (task != "" && deadline !="") {
-                if (keterangan == ""){
-                    keterangan = "-";
-                }
-                Swal.fire({
-                    position: 'mid',
-                    icon: 'success',
-                    title: 'Your succesfully add task!',
-                    showConfirmButton: false,
-                    timer: 1000
-                    })
-              id_data ++;
-              task_list.push({'id_data':id_data, 'keterangan':keterangan, 'task':task, 'deadline':deadline});
-              localStorage.setItem('task_list', JSON.stringify(task_list));
-              localStorage.setItem('id_data', id_data);
-              document.getElementById('form-data').reset();
-              gantiMenu('task-list');
+			if (localStorage.task_list && localStorage.id_data) {
+				task_list = JSON.parse(localStorage.getItem("task_list"));
+				id_data = parseInt(localStorage.getItem("id_data"));
+			} else {
+				task_list = [];
+				id_data = 0;
+			}
+			if (task != "" && deadline != "") {
+				if (keterangan == "") {
+					keterangan = "-";
+				}
+				Swal.fire({
+					position: "mid",
+					icon: "success",
+					title: "Your succesfully add task!",
+					showConfirmButton: false,
+					timer: 1000,
+				});
+				id_data++;
+				task_list.push({
+					id_data: id_data,
+					keterangan: keterangan,
+					task: task,
+					deadline: deadline,
+				});
+				localStorage.setItem("task_list", JSON.stringify(task_list));
+				localStorage.setItem("id_data", id_data);
+				document.getElementById("form-data").reset();
+				gantiMenu("task-list");
 
-              return false;
-            } else {
-            	Swal.fire({
-                    position: 'mid',
-                    icon: 'warning',
-                    title: 'Fill the field completely!',
-                    showConfirmButton: false,
-                    timer: 1250
-                    })
-              endif();
-            }
+				return false;
+			} else {
+				Swal.fire({
+					position: "mid",
+					icon: "warning",
+					title: "Fill the field completely!",
+					showConfirmButton: false,
+					timer: 1250,
+				});
+				endif();
+			}
+		}
 
-        }
+		function clearData() {
+			Swal.fire({
+				title: "Warning!",
+				text: "Are you want to clear your task?",
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: "Yes, clear it!",
+			}).then((result) => {
+				if (result.value) {
+					Swal.fire({
+						position: "mid",
+						icon: "success",
+						title: "You successfully clear the task!",
+						showConfirmButton: false,
+						timer: 1500,
+					});
+					localStorage.clear();
+					setTimeout(function () {
+						location.reload();
+					}, 1750);
+				}
+			});
+		}
 
-        function clearData(){
-            Swal.fire({
-                title: 'Warning!',
-                text: "Are you want to clear your task?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, clear it!'
-                }).then((result) => {
-                if (result.value) {
-                    Swal.fire({
-                        position: 'mid',
-                        icon: 'success',
-                        title: 'You successfully clear the task!',
-                        showConfirmButton: false,
-                        timer: 1500
-                        })
-                        localStorage.clear();
-                        setTimeout(function(){
-                        location.reload();
-                        }, 1750);
-                        
-                }
-                })
-            
-        }
+		function simpanEditData() {
+			id_data = $("#eid_data").val();
+			task = $("#etask").val();
+			keterangan = $("#eketerangan").val();
+			deadline = $("#edeadline").val();
 
-        function simpanEditData(){
-            
-            id_data = $('#eid_data').val();
-            task = $('#etask').val();
-            keterangan = $('#eketerangan').val();
-            deadline = $('#edeadline').val();
-           
+			if ((task == "") | (deadline == "")) {
+				Swal.fire({
+					position: "mid",
+					icon: "warning",
+					title: "Fill the field completely!",
+					showConfirmButton: false,
+					timer: 1250,
+				});
+			} else {
+				Swal.fire({
+					position: "mid",
+					icon: "success",
+					title: "Your task has been changed succesfully!",
+					showConfirmButton: false,
+					timer: 1500,
+				});
 
-            if (task == "" | deadline == "") {
-                Swal.fire({
-                    position: 'mid',
-                    icon: 'warning',
-                    title: 'Fill the field completely!',
-                    showConfirmButton: false,
-                    timer: 1250
-                    })
-            } else {
-                Swal.fire({
-                    position: 'mid',
-                    icon: 'success',
-                    title: 'Your task has been changed succesfully!',
-                    showConfirmButton: false,
-                    timer: 1500
-                    })
+				task_list.push({
+					id_data: id_data,
+					task: task,
+					deadline: deadline,
+					keterangan: keterangan,
+				});
+				localStorage.setItem("task_list", JSON.stringify(task_list));
+				document.getElementById("eform-data").reset();
+				gantiMenu("task-list");
 
-            task_list.push({'id_data':id_data, 'task':task, 'deadline':deadline, 'keterangan':keterangan});
-            localStorage.setItem('task_list', JSON.stringify(task_list));
-            document.getElementById('eform-data').reset();
-            gantiMenu('task-list');
+				return false;
+			}
+		}
 
-            return false;
-            }
-        }
+		function hapusData(id) {
+			task = $("#task").val();
+			deadline = $("#deadline").val();
+			keterangan = $("#keterangan").val();
 
-        function hapusData(id){
-            task = $('#task').val();
-            deadline = $('#deadline').val();
-            keterangan = $('#keterangan').val();
+			Swal.fire({
+				title: "Are you sure done?",
+				text: "You won't be able to revert this!",
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: "Yes, im done!",
+			}).then((result) => {
+				if (result.value) {
+					Swal.fire({
+						position: "mid",
+						icon: "success",
+						title: "You successfully done the task!",
+						showConfirmButton: false,
+						timer: 1500,
+					});
+					if (localStorage.task_list && localStorage.id_data) {
+						task_list = JSON.parse(localStorage.getItem("task_list"));
 
-            Swal.fire({
-                title: 'Are you sure done?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, im done!'
-                }).then((result) => {
-                if (result.value) {
-                    Swal.fire({
-                        position: 'mid',
-                        icon: 'success',
-                        title: 'You successfully done the task!',
-                        showConfirmButton: false,
-                        timer: 1500
-                        })
-                    if (localStorage.task_list && localStorage.id_data){
-                task_list = JSON.parse(localStorage.getItem('task_list'));
-                
-                idx_data = 0;
-                for (i in task_list){
-                    if (task_list[i].id_data == id){
-                        task_history = localStorage.getItem('task_history');
-                        task_list.splice(idx_data, 1);
-                    }
-                    idx_data ++;
-                }
+						idx_data = 0;
+						for (i in task_list) {
+							if (task_list[i].id_data == id) {
+								task_history = localStorage.getItem("task_history");
+								task_list.splice(idx_data, 1);
+							}
+							idx_data++;
+						}
 
-                localStorage.setItem('task_list', JSON.stringify(task_list));
-                muatDaftarData();
-            }
-                }
-                })
-        }
+						localStorage.setItem("task_list", JSON.stringify(task_list));
+						muatDaftarData();
+					}
+				}
+			});
+		}
 
-        function sejarahData() {
+		function sejarahData() {
+			task_history = JSON.parse(localStorage.getItem("task_history"));
 
-            task_history = JSON.parse(localStorage.getItem('task_history'));
+			var data_history = "";
 
-            var data_history = "";
+			data_history = '<table class="table">';
+			data_history +=
+				"<thead>" + "<th>Task</th>" + "<th>Deadline</th>" + "</thead><tbody>";
 
-                    data_history = '<table class="table">';
-                    data_history += '<thead>'+
-                                        '<th>Task</th>'+
-                                        '<th>Deadline</th>'+
-                                      '</thead><tbody>';
-                        
-                        data_history += '<tr>';
-                        data_history +=   '<td>'+ 'boy' + ' </td>' +
-                                          '<td>'+ 'nyantuy' + ' </td>';
-                        data_history += '</tr>';
-                    
-                   data_history += '</tbody></table>';
+			data_history += "<tr>";
+			data_history += "<td>" + "boy" + " </td>" + "<td>" + "nyantuy" + " </td>";
+			data_history += "</tr>";
 
-               $('#task-list').html(data_history);
-               $('#task-list').hide();
-               $('#task-list').fadeIn(100);
-        }
+			data_history += "</tbody></table>";
 
-        function about() {
-            var data_history = "";
-                    data_history = '<div class="col-md-8 col-md-offset-2">';
-                    data_history += '<div class="well" style="width:100%;">';
-                    data_history += '<h2 style="text-align:center; font-family:monospace;"><b>About</b></h2>';
-                    data_history += '<p style="width:50%; text-align:center; margin-left:25%; font-family:georgia;">'+
-                                        'This application is made by <i>Brilliant Fikri</i>. '+
-                                        'Main goal from this application is to make good productive '+
-                                        'app that help you organize task better! I hope you enjoyed much!<br><br>'+
-                                        'Best Regard,<br>'+
-                                        '<i>Brilliant Fikri</i>'+
-                                      '</p>'+
-                                      '</div>'+
-                                      '</div>';
-                    
-               $('#santuy').html(data_history);
-               $('#santuy').hide();
-               $('#santuy').fadeIn(100);
-        }
+			$("#task-list").html(data_history);
+			$("#task-list").hide();
+			$("#task-list").fadeIn(100);
+		}
 
-        function gantiMenu(menu){
-            if (menu == "task-list"){
-                muatDaftarData();
-                document.getElementById("asiap").innerHTML = "(Task List)";
-                $('#task-list').fadeIn();
-                $('#edit-data').hide();
-                $('#tambah-data').hide();
-                $('#santuy').hide();
-            } else if (menu == "add-task"){
-                document.getElementById("asiap").innerHTML = "(Add Task)";
-                $('#edit-data').hide();
-                $('#tambah-data').fadeIn();
-                $('#task-list').hide();
-                $('#santuy').hide();
-            }
-            else if (menu == "edit-data"){
-                $('#edit-data').fadeIn();
-                $('#tambah-data').hide();
-                $('#task-list').hide();
-                $('#santuy').hide();
-            }
-            /* else if (menu == "task-history"){
+		function about() {
+			var data_history = "";
+			data_history = '<div class="col-md-8 col-md-offset-2">';
+			data_history += '<div class="well" style="width:100%;">';
+			data_history +=
+				'<h2 style="text-align:center; font-family:monospace;"><b>About</b></h2>';
+			data_history +=
+				'<p style="width:50%; text-align:center; margin-left:25%; font-family:georgia;">' +
+				"This application is made by <i>Brilliant Fikri</i>. " +
+				"Main goal from this application is to make good productive " +
+				"app that help you organize task better! I hope you enjoyed much!<br><br>" +
+				"Best Regard,<br>" +
+				"<i>Brilliant Fikri</i>" +
+				"</p>" +
+				"</div>" +
+				"</div>";
+
+			$("#santuy").html(data_history);
+			$("#santuy").hide();
+			$("#santuy").fadeIn(100);
+		}
+
+		function gantiMenu(menu) {
+			if (menu == "task-list") {
+				muatDaftarData();
+				document.getElementById("asiap").innerHTML = "(Task List)";
+				$("#task-list").fadeIn();
+				$("#edit-data").hide();
+				$("#tambah-data").hide();
+				$("#santuy").hide();
+			} else if (menu == "add-task") {
+				document.getElementById("asiap").innerHTML = "(Add Task)";
+				$("#edit-data").hide();
+				$("#tambah-data").fadeIn();
+				$("#task-list").hide();
+				$("#santuy").hide();
+			} else if (menu == "edit-data") {
+				$("#edit-data").fadeIn();
+				$("#tambah-data").hide();
+				$("#task-list").hide();
+				$("#santuy").hide();
+			} else if (menu == "about") {
+				/* else if (menu == "task-history"){
                 document.getElementById("asiap").innerHTML = "(Task History)";
                 $('#task-list').hide();
                 $('#tambah-data').hide();
                 sejarahData();
                 #code that doesnt work!
-            } */ else if (menu == "about") {
-                $('#task-list').hide();
-                $('#tambah-data').hide();
-                $('.col-md-10 col-md-offset-1').hide();
-                document.getElementById("asiap").innerHTML = "(About)";
-                about();
-            }
-        }
-    </script>
-     
+            } */
+				$("#task-list").hide();
+				$("#tambah-data").hide();
+				$(".col-md-10 col-md-offset-1").hide();
+				document.getElementById("asiap").innerHTML = "(About)";
+				about();
+			}
+		}
+	</script>
 </html>
