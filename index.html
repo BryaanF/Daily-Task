@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Task.ly</title>
-		<link rel="shortcut icon" href="files/DT.png" />
 		<script src="files/js/jquery.min.js"></script>
 		<script src="package/dist/sweetalert2.min.js"></script>
 		<link rel="stylesheet" href="package/dist/sweetalert2.min.css" />
@@ -24,13 +26,16 @@
 				margin-top: 5px;
 				margin-bottom: 10px;
 			}
+			#no-task {
+				text-align: center;
+			}
 		</style>
 	</head>
-	<body onload="muatDaftarData();">
+	<body onload="gantiMenu('task-list');">
 		<div class="col-md-10 col-md-offset-1" ng-controller="myCtrl">
 			<div class="page-header">
 				<h1 style="font-family: monospace">Daily Task</h1>
-				<h4 id="asiap" style="color: white; font-family: courier">
+				<h4 id="features-title" style="color: white; font-family: courier">
 					(Task List)
 				</h4>
 				<hr />
@@ -53,7 +58,7 @@
 					</li>
 					<li>
 						<a
-							id="nav-tambah-data"
+							id="nav-tentang"
 							href="javascript:void(0);"
 							onclick="gantiMenu('about');"
 							>About</a
@@ -61,27 +66,6 @@
 					</li>
 				</ul>
 			</div>
-			<!-- #broken code here! -->
-			<!-- <div class="modal fade" id="santuyMantuy" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-scrollable" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalScrollableTitle">Modal title</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      ...
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
-
 			<div id="tambah-data" class="well" style="display: none">
 				<form id="form-data">
 					<div id="name-group" class="form-group">
@@ -126,7 +110,6 @@
 						class="btn btn-warning btn-small" />
 				</form>
 			</div>
-
 			<div id="edit-data" class="well" style="display: none">
 				<form id="eform-data">
 					<div id="name-group" class="form-group" style="display: none">
@@ -186,9 +169,8 @@
 				</form>
 			</div>
 			<div id="task-list" class="well"></div>
-			<div id="santuy"></div>
+			<div id="about"></div>
 		</div>
-
 		<!-- body end here -->
 	</body>
 	<script type="text/javascript">
@@ -199,7 +181,6 @@
 				var data_app = "";
 
 				if (task_list.length > 0) {
-					//data_app = '<div class="table-responsive-xl>';
 					data_app += '<table class="table">';
 					data_app +=
 						'<thead class="thead-dark">' +
@@ -240,12 +221,13 @@
 					//data_app += '</div>';
 					data_app +=
 						'<br><button onclick="clearData();" type="button" class="btn btn-danger">Clear</button>';
-				} else {
-					data_app = "Yipii! No task available! ^_^";
 				}
 
 				$("#task-list").html(data_app);
-				$("#task-list").hide();
+				$("#task-list").fadeIn(100);
+			} else {
+				data_app = "<p id='no-task'>Yipiiiee! No task available! ^_^</p>";
+				$("#task-list").html(data_app);
 				$("#task-list").fadeIn(100);
 			}
 		}
@@ -306,13 +288,12 @@
 				return false;
 			} else {
 				Swal.fire({
-					position: "mid",
+					position: "center",
 					icon: "warning",
 					title: "Fill the field completely!",
 					showConfirmButton: false,
 					timer: 1250,
 				});
-				endif();
 			}
 		}
 
@@ -420,26 +401,6 @@
 			});
 		}
 
-		function sejarahData() {
-			task_history = JSON.parse(localStorage.getItem("task_history"));
-
-			var data_history = "";
-
-			data_history = '<table class="table">';
-			data_history +=
-				"<thead>" + "<th>Task</th>" + "<th>Deadline</th>" + "</thead><tbody>";
-
-			data_history += "<tr>";
-			data_history += "<td>" + "boy" + " </td>" + "<td>" + "nyantuy" + " </td>";
-			data_history += "</tr>";
-
-			data_history += "</tbody></table>";
-
-			$("#task-list").html(data_history);
-			$("#task-list").hide();
-			$("#task-list").fadeIn(100);
-		}
-
 		function about() {
 			var data_history = "";
 			data_history = '<div class="col-md-8 col-md-offset-2">';
@@ -448,51 +409,39 @@
 				'<h2 style="text-align:center; font-family:monospace;"><b>About</b></h2>';
 			data_history +=
 				'<p style="width:50%; text-align:center; margin-left:25%; font-family:georgia;">' +
-				"This application is made by <i>Brilliant Fikri</i>. " +
-				"Main goal from this application is to make good productive " +
-				"app that help you organize task better! I hope you enjoyed much!<br><br>" +
-				"Best Regard,<br>" +
-				"<i>Brilliant Fikri</i>" +
+				"Simple to do list app! Made with vanilla HTML, CSS (Bootstrap 3, SweetAlert2), JS (JQuery) <br> <br> Made with ❤️ by Liant" +
 				"</p>" +
 				"</div>" +
 				"</div>";
 
-			$("#santuy").html(data_history);
-			$("#santuy").hide();
-			$("#santuy").fadeIn(100);
+			$("#about").html(data_history);
+			$("#about").fadeIn(100);
 		}
 
 		function gantiMenu(menu) {
 			if (menu == "task-list") {
 				muatDaftarData();
-				document.getElementById("asiap").innerHTML = "(Task List)";
+				document.getElementById("features-title").innerHTML = "(Task List)";
 				$("#task-list").fadeIn();
 				$("#edit-data").hide();
 				$("#tambah-data").hide();
-				$("#santuy").hide();
+				$("#about").hide();
 			} else if (menu == "add-task") {
-				document.getElementById("asiap").innerHTML = "(Add Task)";
+				document.getElementById("features-title").innerHTML = "(Add Task)";
 				$("#edit-data").hide();
 				$("#tambah-data").fadeIn();
 				$("#task-list").hide();
-				$("#santuy").hide();
+				$("#about").hide();
 			} else if (menu == "edit-data") {
 				$("#edit-data").fadeIn();
 				$("#tambah-data").hide();
 				$("#task-list").hide();
-				$("#santuy").hide();
+				$("#about").hide();
 			} else if (menu == "about") {
-				/* else if (menu == "task-history"){
-                document.getElementById("asiap").innerHTML = "(Task History)";
-                $('#task-list').hide();
-                $('#tambah-data').hide();
-                sejarahData();
-                #code that doesnt work!
-            } */
 				$("#task-list").hide();
 				$("#tambah-data").hide();
 				$(".col-md-10 col-md-offset-1").hide();
-				document.getElementById("asiap").innerHTML = "(About)";
+				document.getElementById("features-title").innerHTML = "(About)";
 				about();
 			}
 		}

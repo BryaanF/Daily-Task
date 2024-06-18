@@ -1,4 +1,4 @@
-import { warn, warnAboutDepreation } from '../utils/utils.js'
+import { warn, warnAboutDeprecation } from '../utils/utils.js'
 
 export const defaultParams = {
   title: '',
@@ -7,7 +7,9 @@ export const defaultParams = {
   html: '',
   footer: '',
   icon: undefined,
+  iconColor: undefined,
   iconHtml: undefined,
+  template: undefined,
   toast: false,
   animation: true,
   showClass: {
@@ -20,8 +22,9 @@ export const defaultParams = {
     backdrop: 'swal2-backdrop-hide',
     icon: 'swal2-icon-hide',
   },
-  customClass: undefined,
+  customClass: {},
   target: 'body',
+  color: undefined,
   backdrop: true,
   heightAuto: true,
   allowOutsideClick: true,
@@ -30,22 +33,31 @@ export const defaultParams = {
   stopKeydownPropagation: true,
   keydownListenerCapture: false,
   showConfirmButton: true,
+  showDenyButton: false,
   showCancelButton: false,
   preConfirm: undefined,
+  preDeny: undefined,
   confirmButtonText: 'OK',
   confirmButtonAriaLabel: '',
   confirmButtonColor: undefined,
+  denyButtonText: 'No',
+  denyButtonAriaLabel: '',
+  denyButtonColor: undefined,
   cancelButtonText: 'Cancel',
   cancelButtonAriaLabel: '',
   cancelButtonColor: undefined,
   buttonsStyling: true,
   reverseButtons: false,
   focusConfirm: true,
+  focusDeny: false,
   focusCancel: false,
+  returnFocus: true,
   showCloseButton: false,
   closeButtonHtml: '&times;',
   closeButtonAriaLabel: 'Close this dialog',
+  loaderHtml: '',
   showLoaderOnConfirm: false,
+  showLoaderOnDeny: false,
   imageUrl: undefined,
   imageWidth: undefined,
   imageHeight: undefined,
@@ -57,67 +69,95 @@ export const defaultParams = {
   background: undefined,
   input: undefined,
   inputPlaceholder: '',
+  inputLabel: '',
   inputValue: '',
   inputOptions: {},
+  inputAutoFocus: true,
   inputAutoTrim: true,
   inputAttributes: {},
   inputValidator: undefined,
+  returnInputValueOnDeny: false,
   validationMessage: undefined,
   grow: false,
   position: 'center',
   progressSteps: [],
   currentProgressStep: undefined,
   progressStepsDistance: undefined,
-  onBeforeOpen: undefined,
-  onOpen: undefined,
-  onRender: undefined,
-  onClose: undefined,
-  onAfterClose: undefined,
-  scrollbarPadding: true
+  willOpen: undefined,
+  didOpen: undefined,
+  didRender: undefined,
+  willClose: undefined,
+  didClose: undefined,
+  didDestroy: undefined,
+  scrollbarPadding: true,
 }
 
 export const updatableParams = [
-  'title',
-  'titleText',
-  'text',
-  'html',
-  'icon',
-  'customClass',
-  'showConfirmButton',
-  'showCancelButton',
-  'confirmButtonText',
-  'confirmButtonAriaLabel',
-  'confirmButtonColor',
-  'cancelButtonText',
+  'allowEscapeKey',
+  'allowOutsideClick',
+  'background',
+  'buttonsStyling',
   'cancelButtonAriaLabel',
   'cancelButtonColor',
-  'buttonsStyling',
-  'reverseButtons',
+  'cancelButtonText',
+  'closeButtonAriaLabel',
+  'closeButtonHtml',
+  'color',
+  'confirmButtonAriaLabel',
+  'confirmButtonColor',
+  'confirmButtonText',
+  'currentProgressStep',
+  'customClass',
+  'denyButtonAriaLabel',
+  'denyButtonColor',
+  'denyButtonText',
+  'didClose',
+  'didDestroy',
+  'footer',
+  'hideClass',
+  'html',
+  'icon',
+  'iconColor',
+  'iconHtml',
+  'imageAlt',
+  'imageHeight',
   'imageUrl',
   'imageWidth',
-  'imageHeight',
-  'imageAlt',
+  'preConfirm',
+  'preDeny',
   'progressSteps',
-  'currentProgressStep'
+  'returnFocus',
+  'reverseButtons',
+  'showCancelButton',
+  'showCloseButton',
+  'showConfirmButton',
+  'showDenyButton',
+  'text',
+  'title',
+  'titleText',
+  'willClose',
 ]
 
-export const deprecatedParams = {
-  animation: 'showClass" and "hideClass',
-}
+/** @type {Record<string, string>} */
+export const deprecatedParams = {}
 
 const toastIncompatibleParams = [
   'allowOutsideClick',
   'allowEnterKey',
   'backdrop',
   'focusConfirm',
+  'focusDeny',
   'focusCancel',
+  'returnFocus',
   'heightAuto',
-  'keydownListenerCapture'
+  'keydownListenerCapture',
 ]
 
 /**
  * Is valid parameter
- * @param {String} paramName
+ *
+ * @param {string} paramName
+ * @returns {boolean}
  */
 export const isValidParameter = (paramName) => {
   return Object.prototype.hasOwnProperty.call(defaultParams, paramName)
@@ -125,7 +165,9 @@ export const isValidParameter = (paramName) => {
 
 /**
  * Is valid parameter for Swal.update() method
- * @param {String} paramName
+ *
+ * @param {string} paramName
+ * @returns {boolean}
  */
 export const isUpdatableParameter = (paramName) => {
   return updatableParams.indexOf(paramName) !== -1
@@ -133,36 +175,52 @@ export const isUpdatableParameter = (paramName) => {
 
 /**
  * Is deprecated parameter
- * @param {String} paramName
+ *
+ * @param {string} paramName
+ * @returns {string | undefined}
  */
 export const isDeprecatedParameter = (paramName) => {
   return deprecatedParams[paramName]
 }
 
+/**
+ * @param {string} param
+ */
 const checkIfParamIsValid = (param) => {
   if (!isValidParameter(param)) {
     warn(`Unknown parameter "${param}"`)
   }
 }
 
+/**
+ * @param {string} param
+ */
 const checkIfToastParamIsValid = (param) => {
   if (toastIncompatibleParams.includes(param)) {
     warn(`The parameter "${param}" is incompatible with toasts`)
   }
 }
 
+/**
+ * @param {string} param
+ */
 const checkIfParamIsDeprecated = (param) => {
-  if (isDeprecatedParameter(param)) {
-    warnAboutDepreation(param, isDeprecatedParameter(param))
+  const isDeprecated = isDeprecatedParameter(param)
+  if (isDeprecated) {
+    warnAboutDeprecation(param, isDeprecated)
   }
 }
 
 /**
  * Show relevant warnings for given params
  *
- * @param params
+ * @param {SweetAlertOptions} params
  */
 export const showWarningsForParams = (params) => {
+  if (params.backdrop === false && params.allowOutsideClick) {
+    warn('"allowOutsideClick" parameter requires `backdrop` parameter to be set to `true`')
+  }
+
   for (const param in params) {
     checkIfParamIsValid(param)
 
